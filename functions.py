@@ -22,7 +22,7 @@ def clean_text(text):
 
     return text
 
-@st.cache(allow_output_mutation=True)
+@st.cache
 def load_arabert():
     model_name = "aubmindlab/bert-base-arabertv2"
     arabert_prep = ArabertPreprocessor(model_name=model_name)
