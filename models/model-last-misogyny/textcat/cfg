@@ -1,0 +1,8 @@
+{
+  "labels":[
+    "misogyny",
+    "none"
+  ],
+  "threshold":0.5,
+  "positive_label":null
+}
