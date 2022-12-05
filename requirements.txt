@@ -1,6 +1,4 @@
-emoji
-pandas
-arabert
 spacy
+pandas
 streamlit
-scikit_learn
+emoji
