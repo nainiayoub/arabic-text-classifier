@@ -1,4 +1,6 @@
-spacy
 pandas
-streamlit
 emoji
+arabert
+spacy
+streamlit
+scikit_learn
