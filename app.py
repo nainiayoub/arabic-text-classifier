@@ -18,6 +18,19 @@ html_temp = """
                 """
 
 
+hide="""
+<style>
+footer{
+	visibility: hidden;
+    position: relative;
+}
+.viewerBadge_container__1QSob{
+    visibility: hidden;
+}
+<style>
+"""
+st.markdown(hide, unsafe_allow_html=True)
+
 with st.sidebar:
     input_options = st.selectbox("Input option", ['Text', 'CSV File'])
 
