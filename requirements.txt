@@ -4,4 +4,3 @@ arabert
 spacy
 streamlit
 scikit_learn
-aubmindlab/bert-base-arabertv2 @ https://huggingface.co/aubmindlab/bert-base-arabertv2
