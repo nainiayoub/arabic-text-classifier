@@ -35,7 +35,7 @@ if 'nlp_off' not in st.session_state:
 
 
 if input_options == 'Text':
-    text = st.text_area("Enter Arabic text")
+    text = st.text_area("Enter Arabic text", "ناقصة عقل ودين أنت يا صاحبة المنشور")
     if text:
         text_cleaned_off = clean_text(text)
         label_off, score_off = get_prediction(text_cleaned_off, st.session_state['nlp_off'])
