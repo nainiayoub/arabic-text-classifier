@@ -1,6 +1,6 @@
 pandas
 emoji
-arabert
+arabert==1.0.1
 spacy
 streamlit
 scikit_learn
