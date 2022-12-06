@@ -28,13 +28,12 @@ def load_arabert():
     arabert_prep = ArabertPreprocessor(model_name=model_name)
     return arabert_prep
 
-@st.cache
-def preprocess_text(text):
+
+def preprocess_text(text, prep_model):
   text = re.sub("[a-zA-Z]", " ", text) # remove english letters
   text = re.sub(r'[ء-ي]+@', '', text) # remove profile tags
   text = re.sub(r'[ء-ي]+#', '', text) # remove profile tags
-  arabert_prep = load_arabert()
-  text = arabert_prep.preprocess(text, farasa = farasa_segmenter)
+  text = prep_model.preprocess(text)
   return text
 
 
@@ -56,7 +55,7 @@ def classify_from_df(df, column):
     predicted_classes_misg = []
     scores_misg = []
     for t in list(df[column]):
-        text_cleaned = preprocess_text(t)
+        text_cleaned = preprocess_text(t, st.session_state['prep_model'])
         # offensive
         label, score = get_prediction(text_cleaned, st.session_state['nlp_off'])
         label = label.replace('_', ' ')
