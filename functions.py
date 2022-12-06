@@ -34,7 +34,7 @@ def preprocess_text(text):
   text = re.sub(r'[ء-ي]+@', '', text) # remove profile tags
   text = re.sub(r'[ء-ي]+#', '', text) # remove profile tags
   arabert_prep = load_arabert()
-  text = arabert_prep.preprocess(text)
+  text = arabert_prep.preprocess(text, farasa = farasa_segmenter)
   return text
 
 
