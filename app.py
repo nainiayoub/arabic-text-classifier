@@ -2,8 +2,14 @@ import streamlit as st
 import spacy
 from functions import clean_text, get_prediction, convert_df, classify_from_df, load_arabert, preprocess_text
 import pandas as pd
-from arabert.preprocess import ArabertPreprocessor
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
+
+
+st.set_page_config(
+    page_title="Arabic Text Classifier",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 html_temp = """
                 <div style="background-color:{};padding:1px">
@@ -14,12 +20,6 @@ html_temp = """
 
 with st.sidebar:
     input_options = st.selectbox("Input option", ['Text', 'CSV File'])
-
-
-if 'prep_model' not in st.session_state:
-    model_name = "aubmindlab/bert-base-arabertv2"
-    arabert_prep = ArabertPreprocessor(model_name=model_name)
-    st.session_state['prep_model'] = arabert_prep
 
 
 st.title("VAW in Libya")
@@ -39,7 +39,7 @@ if input_options == 'Text':
     if text:
         text_cleaned_off = clean_text(text)
         label_off, score_off = get_prediction(text_cleaned_off, st.session_state['nlp_off'])
-        text_cleaned_misg = preprocess_text(text, st.session_state['prep_model'])
+        text_cleaned_misg = preprocess_text(text)
         label_misg, score_misg = get_prediction(text_cleaned_misg, st.session_state['nlp_misg'])
         label_misg = 'not_misogynistic' if label_misg == 'none' else 'misogynistic'
         col1, col2 = st.columns(2)

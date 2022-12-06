@@ -22,18 +22,19 @@ def clean_text(text):
 
     return text
 
-
+@st.cache(allow_output_mutation=True)
 def load_arabert():
     model_name = "aubmindlab/bert-base-arabertv2"
     arabert_prep = ArabertPreprocessor(model_name=model_name)
     return arabert_prep
 
-
-def preprocess_text(text, prep_model):
+@st.cache
+def preprocess_text(text):
   text = re.sub("[a-zA-Z]", " ", text) # remove english letters
   text = re.sub(r'[ء-ي]+@', '', text) # remove profile tags
   text = re.sub(r'[ء-ي]+#', '', text) # remove profile tags
-  text = prep_model.preprocess(text)
+  arabert_prep = load_arabert()
+  text = arabert_prep.preprocess(text)
   return text
 
 
@@ -55,7 +56,7 @@ def classify_from_df(df, column):
     predicted_classes_misg = []
     scores_misg = []
     for t in list(df[column]):
-        text_cleaned = preprocess_text(t, st.session_state['prep_model'])
+        text_cleaned = preprocess_text(t)
         # offensive
         label, score = get_prediction(text_cleaned, st.session_state['nlp_off'])
         label = label.replace('_', ' ')
