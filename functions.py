@@ -10,7 +10,7 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import f1_score, classification_report
 
-st.cache_data
+@st.cache_data
 def clean_text(text):
     arabic_punctuations = '''`÷×؛<>_()*&^%][ـ،/:"؟.,'{}~¦+|?�!”…“#•–ـ''' # define arabic punctuations
     text = re.sub(r'@\S+', '', text) # remove profile tags
@@ -28,13 +28,14 @@ def clean_text(text):
 
     return text
 
-@st.cache(allow_output_mutation=True)
+
+@st.cache_resource()
 def load_arabert():
     model_name = "aubmindlab/bert-base-arabertv2"
     arabert_prep = ArabertPreprocessor(model_name=model_name)
     return arabert_prep
 
-st.cache_data
+@st.cache_data
 def preprocess_text(text):
   text = re.sub("[a-zA-Z]", " ", text) # remove english letters
   text = re.sub(r'[ء-ي]+@', '', text) # remove profile tags
@@ -51,11 +52,11 @@ def get_prediction(text, model):
 
     return label, score
 
-st.cache_data
+@st.cache_data
 def convert_df(df):
     return df.to_csv().encode('utf-8')
 
-st.cache_data
+@st.cache_data
 def compute_score(target, predicted, score):
     if score == 'accuracy':
         return accuracy_score(target, predicted)
@@ -66,7 +67,7 @@ def compute_score(target, predicted, score):
     elif score == 'f1_score':
         return f1_score(target, predicted, pos_label='not Misogyny')
 
-st.cache_data
+@st.cache_data
 def classify_from_df(df, column):
     predicted_classes_off = []
     scores_off = []
